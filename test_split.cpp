@@ -50,6 +50,18 @@ int main(int argc, char* argv[])
         oddcounter = oddcounter->next;
     }
 
+    Node* holder = odd;
+    while(odd != nullptr){
+        holder = odd;
+        odd = odd->next;
+        delete holder;
+    }
+
+    while(even != nullptr){
+        holder = even;
+        even = even->next;
+        delete holder;
+    }
     
     return 0;
 

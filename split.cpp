@@ -25,39 +25,37 @@ void split(Node*& in, Node*& odds, Node*& evens)
       return;
     }
 
+    if(in -> value % 2 == 0) {
+        if(evens == nullptr) {
+            evens = in;
+            in = in -> next;
+            evens->next = nullptr;
+        } else{
+            addnode(evens, in);
+        }
 
-    while(in != nullptr) {
-
-        if(in -> value % 2 == 0) {
-            if(evens == nullptr) {
-                evens = in;
-                in = in -> next;
-                evens->next = nullptr;
-            } else{
-                addnode(evens, in);
-            }
-
-        } else {
-            if(odds == nullptr) {
-                odds = in;
-                in = in->next;
-                odds->next = nullptr;
-            } else{
-                addnode(odds, in);
-            }
+    } else {
+        if(odds == nullptr) {
+            odds = in;
+            in = in->next;
+            odds->next = nullptr;
+        } else{
+            addnode(odds, in);
         }
     }
+
+    split(in, odds, evens);
 }
 
 void addnode(Node*& llist, Node*& in)
 {
-    Node* curr = llist;
-    while (curr->next != nullptr) {
-        curr = curr->next;
-    }
 
-    curr->next = in;
-    in = in->next;
-    curr->next->next = nullptr;
+    if (llist->next == nullptr) {
+        llist->next = in;
+        in = in->next;
+        llist->next->next = nullptr;
+    } else {
+        addnode(llist->next, in);
+    }
 }
 /* If you needed a helper function, write it here */
